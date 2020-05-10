@@ -48,7 +48,7 @@ library(VIM)
 missing <- aggr(weather_df, prop = FALSE, numbers = TRUE)
 summary(missing)
 
-#matrixplot(weather_df)
+matrixplot(weather_df)
 
 
 
@@ -58,7 +58,7 @@ summary(missing)
 library(ggplot2) 
 hist(abc$temp, main = "histogram for temperature", xlab = "temperature")
 plot <- ggplot(abc, aes(x = sun, y = temp))
-plot <- plot + stat_smooth(method = "lm", col = "darkblue", se = FALSE)
+plot <- plot + stat_smooth(method = "lm", col = "green", se = FALSE)
 plot <- plot + geom_point()
 print(plot)
 
@@ -151,3 +151,26 @@ fviz_pca_var(pca, col.var = "contrib",
 # #               ggtheme = theme_gray(), palette = "jco")
 
 #--------------------------------------------------------------------------------------------------------
+
+# Hypothetical testing
+
+abc <- cor.test(x=abc$temp, y=abc$wetb, method = 'spearman', exact = F)
+
+
+qqnorm(abc$temp)
+qqline(abc$temp, col = 'blue')
+
+#install.packages("pwr")
+library(pwr)
+#calculating the effective size
+effective_size <- cohen.ES(test = "r", size = "large")
+effective_size
+#------------------------------------------------------------------------------------------------------
+
+#Considering effective size and alpha as 5% ,Power analysis is calculated. #pwr.t.test for corelation.
+power_analysis <-pwr.t.test(d=0.5,n=NULL,sig.level=0.05,  power=0.95, type="one.sample",alternative="two.sided")
+power_analysis
+#plotting power analysis
+plot(power_analysis)
+
+
