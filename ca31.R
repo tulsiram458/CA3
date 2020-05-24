@@ -206,9 +206,6 @@ boxplot(ts ~ cycle(ts),
 seasonal_decomposition <- stl(ts, s.window = "periodic")
 plot(seasonal_decomposition)
 
-# Seasonal decomposition
-fit <- stl(ts, s.window="period")
-plot(fit)
 
 # additional plots
 monthplot(ts)
